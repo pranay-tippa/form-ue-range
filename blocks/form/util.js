@@ -26,7 +26,7 @@ export function stripTags(input, allowd = allowedTags) {
  * @param {string} name The unsanitized string
  * @returns {string} The class name
  */
-export function toClassName(name) {
+function toClassName(name) {
   return typeof name === 'string'
     ? name
       .toLowerCase()

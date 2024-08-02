@@ -4,7 +4,6 @@ import {
   getId,
   stripTags,
   checkValidation,
-  toClassName,
 } from './util.js';
 import GoogleReCaptcha from './integrations/recaptcha.js';
 import componentDecorater from './mappings.js';
@@ -173,7 +172,7 @@ function createRadioOrCheckboxGroup(fd) {
   const wrapper = createFieldSet({ ...fd });
   const type = fd.fieldType.split('-')[0];
   fd.enum.forEach((value, index) => {
-    const label = (typeof fd.enumNames?.[index] === 'object' && fd.enumNames?.[index] !== null) ? fd.enumNames[index].value : fd.enumNames?.[index] || value;
+    const label = typeof fd.enumNames?.[index] === 'object' ? fd.enumNames[index].value : fd.enumNames?.[index] || value;
     const id = getId(fd.name);
     const field = createRadioOrCheckbox({
       name: fd.name,
@@ -183,7 +182,7 @@ function createRadioOrCheckboxGroup(fd) {
       enum: [value],
       required: fd.required,
     });
-    field.classList.remove('field-wrapper', `field-${toClassName(fd.name)}`);
+    field.classList.remove('field-wrapper', `field-${fd.name}`);
     const input = field.querySelector('input');
     input.id = id;
     input.dataset.fieldType = fd.fieldType;
@@ -220,12 +219,11 @@ function createPlainText(fd) {
 
 function createImage(fd) {
   const field = createFieldWrapper(fd);
-  const imagePath = fd.source || fd.properties['fd:repoPath'] || '';
   const image = `
   <picture>
-    <source srcset="${imagePath}?width=2000&optimize=medium" media="(min-width: 600px)">
-    <source srcset="${imagePath}?width=750&optimize=medium">
-    <img alt="${fd.altText || fd.name}" src="${imagePath}?width=750&optimize=medium">
+    <source srcset="${fd.source}?width=2000&optimize=medium" media="(min-width: 600px)">
+    <source srcset="${fd.source}?width=750&optimize=medium">
+    <img alt="${fd.altText || fd.name}" src="${fd.source}?width=750&optimize=medium">
   </picture>`;
   field.innerHTML = image;
   return field;
