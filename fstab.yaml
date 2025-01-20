@@ -1,6 +1,4 @@
 mountpoints:
   /:
-    url: https://author-p133911-e1313554.adobeaemcloud.com/bin/franklin.delivery/pranay-tippa/forms-ue/main
-    type: "markup"
-    suffix: ".html"
+    url: https://drive.google.com/drive/folders/1cUcsBUVNsyjoocyRIKqQ91V1kMTt6fN8?usp=drive_link
     
